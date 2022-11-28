@@ -86,14 +86,28 @@ public:
                     square(e.source.x*sz*2+sz*(e.target.x-e.source.x) + sz/2,
                              e.source.y*sz*2 + sz/2, sz, sz);
                 }
-                
-                // TODO: Fill this in
                 // Consider all four neighbors of e.target
                 // If a neighbor is in bounds and it hasn't been touched,
                 // add an edge from e.target to this neighbor to the frontier
-                
+                int x = e.target.x;
+                int y = e.target.y;
+                Coord right(x+1, y);
+                if (x < N-1 && !touched[right.x + N*right.y]) {
+                    frontier.push(Edge(e.target, right));
+                }
+                Coord left(x-1, y);
+                if (x > 0 && !touched[left.x + N*left.y]) {
+                    frontier.push(Edge(e.target, left));
+                }
+                Coord up(x, y-1);
+                if (y > 0 && !touched[up.x + N*up.y]) {
+                    frontier.push(Edge(e.target, up));
+                }
+                Coord down(x, y+1);
+                if (y < N && !touched[down.x + N*down.y]) {
+                    frontier.push(Edge(e.target, down));
+                }
             }
-            
         }
     }
 };
